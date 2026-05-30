@@ -239,7 +239,7 @@ impl CodeDecomposer {
                 let (body, end) = Self::brace_block(&lines, i);
                 tiles.push(self.tile(CodeKind::Class, &name, &body, i+1, end+1));
             } else if (t.contains("void ") || t.contains("static ")) && t.contains("(") && !t.starts_with("if") && !t.starts_with("for") && !t.starts_with("while") && t.contains("{") {
-                let name = t.split('(').next().unwrap_or("unknown").trim().split(' ').last().unwrap_or("unknown").to_string();
+                let name = t.split('(').next().unwrap_or("unknown").trim().split(' ').next_back().unwrap_or("unknown").to_string();
                 let (body, end) = Self::brace_block(&lines, i);
                 if !body.is_empty() { tiles.push(self.tile(CodeKind::Method, &name, &body, i+1, end+1)); }
             }
